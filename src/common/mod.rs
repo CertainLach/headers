@@ -67,6 +67,7 @@ pub use self::upgrade::Upgrade;
 pub use self::user_agent::UserAgent;
 pub use self::vary::Vary;
 //pub use self::warning::Warning;
+pub use self::www_authenticate::WwwAuthenticate;
 
 #[cfg(test)]
 fn test_decode<T: ::Header>(values: &[&str]) -> Option<T> {
@@ -186,3 +187,4 @@ mod upgrade;
 mod user_agent;
 mod vary;
 //mod warning;
+mod www_authenticate;

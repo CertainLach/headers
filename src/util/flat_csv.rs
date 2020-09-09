@@ -13,6 +13,15 @@ pub(crate) struct FlatCsv<Sep = Comma> {
     _marker: PhantomData<Sep>,
 }
 
+impl Default for FlatCsv {
+    fn default() -> Self {
+        FlatCsv {
+            value: HeaderValue::from_static(""),
+            _marker: PhantomData,
+        }
+    }
+}
+
 pub(crate) trait Separator {
     const BYTE: u8;
     const CHAR: char;
@@ -120,8 +129,8 @@ impl<'a, Sep: Separator> FromIterator<&'a HeaderValue> for FlatCsv<Sep> {
             buf.extend_from_slice(val.as_bytes());
         }
 
-        let val =
-            HeaderValue::from_maybe_shared(buf.freeze()).expect("comma separated HeaderValues are valid");
+        let val = HeaderValue::from_maybe_shared(buf.freeze())
+            .expect("comma separated HeaderValues are valid");
 
         val.into()
     }
@@ -151,8 +160,8 @@ impl<Sep: Separator> FromIterator<HeaderValue> for FlatCsv<Sep> {
             buf.extend_from_slice(val.as_bytes());
         }
 
-        let val =
-            HeaderValue::from_maybe_shared(buf.freeze()).expect("comma separated HeaderValues are valid");
+        let val = HeaderValue::from_maybe_shared(buf.freeze())
+            .expect("comma separated HeaderValues are valid");
 
         val.into()
     }
